@@ -1,0 +1,11 @@
+[
+  { "name": "ESP32 — Espressif (stable)", "url": "https://espressif.github.io/arduino-esp32/package_esp32_index.json", "enabled": true },
+  { "name": "ESP8266 — esp8266.com (stable)", "url": "https://arduino.esp8266.com/stable/package_esp8266com_index.json", "enabled": true },
+  { "name": "ESP32 — Espressif (development)", "url": "https://espressif.github.io/arduino-esp32/package_esp32_dev_index.json", "enabled": false },
+  { "name": "Raspberry Pi Pico RP2040/RP2350 — Earle Philhower", "url": "https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json", "enabled": false },
+  { "name": "STM32 — STMicroelectronics", "url": "https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json", "enabled": false },
+  { "name": "ATtiny — ATTinyCore (drazzy)", "url": "https://drazzy.com/package_drazzy.com_index.json", "enabled": false },
+  { "name": "MiniCore ATmega — MCUdude", "url": "https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json", "enabled": false },
+  { "name": "Adafruit boards", "url": "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json", "enabled": false },
+  { "name": "Seeed Studio boards", "url": "https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json", "enabled": false }
+]

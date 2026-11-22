@@ -1,0 +1,12 @@
+esppro bundles the following third-party software:
+
+arduino-cli (bin/arduino-cli.exe)
+  Copyright Arduino SA. Licensed under the GNU General Public License v3.0.
+  Source code: https://github.com/arduino/arduino-cli
+
+Electron — MIT License — https://github.com/electron/electron
+Monaco Editor — MIT License — https://github.com/microsoft/monaco-editor
+serialport (node-serialport) — MIT License — https://github.com/serialport/node-serialport
+
+esptool is not bundled; esppro uses the copy installed with pip or shipped inside the ESP32 board package.
+esptool — GPL-2.0-or-later — https://github.com/espressif/esptool

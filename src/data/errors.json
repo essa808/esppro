@@ -1,0 +1,15 @@
+[
+  { "re": "Wrong boot mode|No serial data received|Failed to connect to ESP", "key": "err.bootmode" },
+  { "re": "could not open port|Access is denied|PermissionError|port is busy|Resource busy", "key": "err.portbusy" },
+  { "re": "fatal error: ([A-Za-z0-9_./-]+[.]h): No such file or directory", "key": "err.missinglib" },
+  { "re": "was not declared in this scope", "key": "err.notdeclared" },
+  { "re": "Sketch too big|text section exceeds available space", "key": "err.toobig" },
+  { "re": "expected ';' before|expected ';' at end", "key": "err.semicolon" },
+  { "re": "Invalid FQBN|platform not installed|Platform '[^']+' not found", "key": "err.nocore" },
+  { "re": "No device found on|Port not found|could not find port|The system cannot find the file specified", "key": "err.noport" },
+  { "re": "Timed out waiting for packet|A fatal error occurred: Packet content transfer stopped", "key": "err.timeout" },
+  { "re": "Multiple libraries were found", "key": "err.multilib" },
+  { "re": "No response from device|No Answer|Listen Failed", "key": "err.otafw" },
+  { "re": "Authentication Failed|AUTH Failed", "key": "err.otapass" },
+  { "re": "avrdude: stk500_getsync|not in sync", "key": "err.avrsync" }
+]

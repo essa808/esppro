@@ -1,0 +1,11 @@
+[
+  { "vid": "1A86", "pid": ["7523", "5523", "7522"], "chip": "CH340 / CH341", "url": "https://www.wch-ic.com/downloads/CH341SER_EXE.html" },
+  { "vid": "1A86", "pid": ["55D4", "55D3", "55D2", "55D5"], "chip": "CH9102 / CH343", "url": "https://www.wch-ic.com/downloads/CH343SER_EXE.html" },
+  { "vid": "10C4", "pid": ["EA60", "EA70", "EA71"], "chip": "CP210x (Silicon Labs)", "url": "https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers" },
+  { "vid": "0403", "pid": ["6001", "6010", "6011", "6014", "6015"], "chip": "FTDI", "url": "https://ftdichip.com/drivers/vcp-drivers/" },
+  { "vid": "067B", "pid": ["2303", "23A3"], "chip": "Prolific PL2303", "url": "https://www.prolific.com.tw/" },
+  { "vid": "303A", "pid": null, "chip": "Espressif native USB (ESP32-S2/S3/C3/C6)", "url": null, "builtin": true },
+  { "vid": "2341", "pid": null, "chip": "Arduino", "url": "https://support.arduino.cc/hc/en-us/articles/4411305694610" },
+  { "vid": "2A03", "pid": null, "chip": "Arduino (.org)", "url": "https://support.arduino.cc/hc/en-us/articles/4411305694610" },
+  { "vid": "2E8A", "pid": null, "chip": "Raspberry Pi RP2040", "url": null, "builtin": true }
+]

@@ -1,0 +1,72 @@
+{
+  "name": "esppro",
+  "productName": "esppro",
+  "version": "0.5.0",
+  "description": "Arduino/ESP development environment with built-in ESP flashing tools",
+  "author": "esppro",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis portable"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.0"
+  },
+  "dependencies": {
+    "monaco-editor": "0.52.2",
+    "serialport": "13.0.0"
+  },
+  "build": {
+    "appId": "com.esppro.ide",
+    "productName": "esppro",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**",
+      "package.json",
+      "!node_modules/monaco-editor/esm/**",
+      "!node_modules/monaco-editor/dev/**",
+      "!node_modules/monaco-editor/min-maps/**"
+    ],
+    "asarUnpack": [
+      "node_modules/@serialport/**"
+    ],
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin"
+      },
+      {
+        "from": "build/THIRD-PARTY.txt",
+        "to": "THIRD-PARTY.txt"
+      }
+    ],
+    "win": {
+      "icon": "build/icon.png",
+      "artifactName": "${productName}-${version}-setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "esppro",
+      "installerLanguages": [
+        "ar_SA",
+        "en_US"
+      ],
+      "displayLanguageSelector": true
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.${ext}"
+    },
+    "npmRebuild": false
+  },
+  "allowScripts": {
+    "electron-winstaller": false,
+    "@serialport/bindings-cpp": false
+  }
+}

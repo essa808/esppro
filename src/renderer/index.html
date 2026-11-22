@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>esppro</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" data-name="vs/editor/editor.main" href="../../node_modules/monaco-editor/min/vs/editor/editor.main.css">
+</head>
+<body>
+<div id="app">
+  <header class="toolbar">
+    <div class="brand"><span class="logo">esp</span><b>pro</b></div>
+    <button class="tb primary" id="btnVerify" data-i18n-title="verify"><i data-icon="check"></i><span data-i18n="verify"></span></button>
+    <button class="tb primary" id="btnUpload" data-i18n-title="upload"><i data-icon="upload"></i><span data-i18n="upload"></span></button>
+    <button class="tb" id="btnExport" data-i18n-title="exportBin"><i data-icon="chip"></i><span data-i18n="exportBin"></span></button>
+    <span class="sep"></span>
+    <button class="tb select" id="btnBoard"><i data-icon="board"></i><span id="boardName" data-i18n="selectBoard"></span></button>
+    <button class="tb icon" id="btnBoardOpts" data-i18n-title="boardOptions"><i data-icon="sliders"></i></button>
+    <label class="tb select port"><i data-icon="plug"></i><select id="portSel"></select></label>
+    <span class="grow"></span>
+    <button class="tb icon" id="btnNotepad" data-i18n-title="notepad"><i data-icon="note"></i></button>
+    <button class="tb icon" id="btnBrowser" data-i18n-title="browser"><i data-icon="globe"></i><span class="badge hidden" id="ipBadge"></span></button>
+    <button class="tb icon" id="btnDevMgr" data-i18n-title="deviceManager"><i data-icon="devices"></i></button>
+    <button class="tb icon" id="btnTheme" data-i18n-title="themeToggle"><i data-icon="moon" id="themeIcon"></i></button>
+    <button class="tb icon" id="btnSettings" data-i18n-title="settings"><i data-icon="gear"></i></button>
+  </header>
+
+  <div class="main">
+    <nav class="activity">
+      <button data-view="files" data-i18n-title="files" class="active"><i data-icon="folder"></i></button>
+      <button data-view="boards" data-i18n-title="boardsManager"><i data-icon="board"></i></button>
+      <button data-view="libs" data-i18n-title="libraryManager"><i data-icon="book"></i></button>
+      <button data-view="esp" data-i18n-title="espTools"><i data-icon="bolt"></i></button>
+      <button data-view="drivers" data-i18n-title="drivers"><i data-icon="usb"></i></button>
+    </nav>
+
+    <aside class="sidebar" id="sidebar">
+      <!-- Sketch -->
+      <section class="view" data-view="files">
+        <h3 data-i18n="files"></h3>
+        <div class="row wrap">
+          <button class="btn" id="btnNew" data-i18n="new"></button>
+          <button class="btn" id="btnOpen" data-i18n="open"></button>
+          <button class="btn" id="btnSave" data-i18n="save"></button>
+          <button class="btn" id="btnSaveAs" data-i18n="saveAs"></button>
+        </div>
+        <div class="sketch-name" id="sketchName"></div>
+        <ul class="list" id="fileList"></ul>
+        <button class="btn ghost" id="btnAddFile">+ <span data-i18n="addFile"></span></button>
+        <h4 data-i18n="recent"></h4>
+        <ul class="list small" id="recentList"></ul>
+        <button class="btn ghost" id="btnSnapshots" data-i18n="snapshots"></button>
+      </section>
+
+      <!-- Boards manager -->
+      <section class="view hidden" data-view="boards">
+        <h3 data-i18n="boardsManager"></h3>
+        <div class="row"><input id="coreQ" data-i18n-ph="search"><button class="btn" id="btnCoreIndex" data-i18n="updateIndex"></button></div>
+        <div id="coreList" class="cards"></div>
+      </section>
+
+      <!-- Library manager -->
+      <section class="view hidden" data-view="libs">
+        <h3 data-i18n="libraryManager"></h3>
+        <div class="row"><input id="libQ" data-i18n-ph="search"></div>
+        <div id="libList" class="cards"></div>
+      </section>
+
+      <!-- ESP tools -->
+      <section class="view hidden" data-view="esp">
+        <h3 data-i18n="espTools"></h3>
+        <div class="card">
+          <div class="row between"><span><b>esptool</b> <span id="esptoolVer" class="muted"></span></span>
+            <span class="row"><button class="btn" id="btnEsptoolInstall" data-i18n="installEsptool"></button><button class="btn icon" id="btnEsptoolRefresh" data-i18n-title="refresh"><i data-icon="refresh"></i></button></span></div>
+        </div>
+        <div class="card">
+          <div class="grid2">
+            <label><span data-i18n="chip"></span>
+              <select id="espChip"><option value="auto" data-i18n="auto"></option><option>esp32</option><option>esp32s2</option><option>esp32s3</option><option>esp32c2</option><option>esp32c3</option><option>esp32c5</option><option>esp32c6</option><option>esp32h2</option><option>esp32p4</option><option>esp8266</option></select></label>
+            <label><span data-i18n="baud"></span>
+              <select id="espBaud"><option>115200</option><option>230400</option><option selected>460800</option><option>921600</option><option>1500000</option></select></label>
+          </div>
+          <button class="btn" id="btnDetectChip" data-i18n="detectChip"></button>
+          <span id="chipInfo" class="muted"></span>
+        </div>
+        <div class="card">
+          <h4 data-i18n="flashFiles"></h4>
+          <table class="bins"><thead><tr><th>.bin</th><th data-i18n="offset"></th><th></th></tr></thead><tbody id="binRows"></tbody></table>
+          <div class="warn hidden" id="overlapWarn" data-i18n="overlap"></div>
+          <div class="row wrap">
+            <button class="btn" id="btnAddBins" data-i18n="addBins"></button>
+            <button class="btn ghost" id="btnLoadExported" data-i18n="loadExported"></button>
+          </div>
+          <label class="check"><input type="checkbox" id="espEraseAll"> <span data-i18n="eraseBefore"></span></label>
+          <button class="btn primary wide" id="btnFlash"><i data-icon="bolt"></i> <span data-i18n="flash"></span></button>
+        </div>
+        <div class="card">
+          <div class="row">
+            <label class="grow"><span data-i18n="backupSize"></span>
+              <select id="backupSize"><option value="ALL" data-i18n="auto"></option><option value="0x100000">1MB</option><option value="0x200000">2MB</option><option value="0x400000">4MB</option><option value="0x800000">8MB</option><option value="0x1000000">16MB</option></select></label>
+            <button class="btn" id="btnBackup" data-i18n="backup"></button>
+          </div>
+          <button class="btn danger wide" id="btnErase" data-i18n="erase"></button>
+        </div>
+        <div class="card">
+          <h4 data-i18n="partitions"></h4>
+          <p class="muted" data-i18n="partitionsHint"></p>
+          <button class="btn" id="btnPartitions" data-i18n="openPartitions"></button>
+        </div>
+      </section>
+
+      <!-- Drivers -->
+      <section class="view hidden" data-view="drivers">
+        <h3 data-i18n="drivers"></h3>
+        <p class="muted" data-i18n="driversHint"></p>
+        <div class="row"><button class="btn" id="btnScanDrivers" data-i18n="scan"></button><button class="btn" id="btnDevMgr2" data-i18n="deviceManager"></button></div>
+        <div id="driverList" class="cards"></div>
+        <h4 data-i18n="notShowing"></h4>
+        <ol class="tips"><li data-i18n="tip1"></li><li data-i18n="tip2"></li><li data-i18n="tip3"></li><li data-i18n="tip4"></li></ol>
+      </section>
+    </aside>
+
+    <section class="center">
+      <div class="tabs" id="tabs"></div>
+      <div id="editor"></div>
+      <div class="hsplit" id="hsplit"></div>
+      <div class="bottom" id="bottom">
+        <div class="bottom-tabs">
+          <button data-btab="output" class="active" data-i18n="output"></button>
+          <button data-btab="serial" data-i18n="serialMonitor"></button>
+          <button data-btab="plotter" data-i18n="plotter"></button>
+          <span class="grow"></span>
+          <span id="jobState" class="muted"></span>
+          <button class="btn small" id="btnOpenCmd" data-i18n="openInCmd"></button>
+          <button class="btn small hidden" id="btnStop" data-i18n="stop"></button>
+          <button class="btn small" id="btnClearOut" data-i18n="clear"></button>
+        </div>
+        <div class="btab" data-btab="output">
+          <pre id="output" class="console" dir="ltr"></pre>
+          <div id="hints"></div>
+        </div>
+        <div class="btab hidden" data-btab="serial">
+          <div class="serial-bar row">
+            <button class="btn small" id="btnSerialConn" data-i18n="connect"></button>
+            <select id="serialBaud"></select>
+            <select id="serialEol"><option value="" data-i18n="noLineEnding"></option><option value="\n" data-i18n="nl"></option><option value="\r" data-i18n="cr"></option><option value="\r\n" data-i18n="nlcr" selected></option></select>
+            <label class="check"><input type="checkbox" id="serialTs"> <span data-i18n="timestamps"></span></label>
+            <label class="check"><input type="checkbox" id="serialAuto" checked> <span data-i18n="autoscroll"></span></label>
+            <span class="grow"></span>
+            <button class="btn small" id="btnSerialSave" data-i18n="saveLog"></button>
+            <button class="btn small" id="btnSerialClear" data-i18n="clear"></button>
+          </div>
+          <pre id="serialOut" class="console" dir="ltr"></pre>
+          <div class="hint hidden" id="serialHint"></div>
+          <div class="row"><input id="serialIn" class="grow" dir="ltr" data-i18n-ph="messagePlaceholder"><button class="btn" id="btnSerialSend" data-i18n="send"></button></div>
+        </div>
+        <div class="btab hidden" data-btab="plotter">
+          <div class="serial-bar row">
+            <button class="btn small" id="btnPlotConn" data-i18n="connect"></button>
+            <label class="check"><span data-i18n="points"></span>
+              <select id="plotPoints"><option>100</option><option selected>500</option><option>1000</option><option>5000</option></select></label>
+            <button class="btn small" id="btnPlotPause" data-i18n="pause"></button>
+            <button class="btn small" id="btnPlotClear" data-i18n="clear"></button>
+            <span class="grow"></span>
+            <div id="plotLegend" class="legend"></div>
+          </div>
+          <div id="plotWrap" class="plot-wrap" dir="ltr">
+            <canvas id="plotCanvas"></canvas>
+            <div id="plotTip" class="plot-tip hidden"></div>
+            <div id="plotEmpty" class="plot-empty muted" data-i18n="plotHint"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="right hidden" id="right">
+      <div class="right-tabs">
+        <button data-rtab="notepad" class="active"><i data-icon="note"></i> <span data-i18n="notepad"></span></button>
+        <button data-rtab="browser"><i data-icon="globe"></i> <span data-i18n="browser"></span></button>
+        <span class="grow"></span>
+        <button class="btn icon" id="btnCloseRight" data-i18n-title="close"><i data-icon="x"></i></button>
+      </div>
+      <div class="rtab" data-rtab="notepad">
+        <p class="muted" data-i18n="notepadHint"></p>
+        <div class="row wrap">
+          <button class="btn" id="btnNpPull" data-i18n="pullCode"></button>
+          <button class="btn primary" id="btnNpSave" data-i18n="saveTxt"></button>
+          <button class="btn" id="btnNpOpen" data-i18n="openTxt"></button>
+          <button class="btn ghost" id="btnNpToEditor" data-i18n="toEditor"></button>
+        </div>
+        <textarea id="notepad" spellcheck="false" dir="auto"></textarea>
+      </div>
+      <div class="rtab hidden" data-rtab="browser">
+        <div class="row">
+          <button class="btn icon" id="btnWvBack"><i data-icon="back"></i></button>
+          <button class="btn icon" id="btnWvReload" data-i18n-title="reload"><i data-icon="refresh"></i></button>
+          <input id="wvUrl" class="grow" dir="ltr" placeholder="http://192.168.1.50">
+          <button class="btn" id="btnWvGo" data-i18n="go"></button>
+          <button class="btn icon" id="btnWvExternal" title="↗"><i data-icon="external"></i></button>
+        </div>
+        <div class="ips"><span class="muted" data-i18n="detectedIps"></span>: <span id="ipChips"></span></div>
+        <div id="wvHost"><p class="muted" data-i18n="browserHint"></p></div>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="status">
+    <span id="stBoard"></span><span id="stPort"></span><span id="stEsptool"></span>
+    <span class="grow"></span>
+    <span id="stCursor"></span><span id="stLang"></span>
+  </footer>
+</div>
+
+<div id="modalBack" class="modal-back hidden"><div class="modal" id="modal"></div></div>
+<div id="toasts"></div>
+
+<script src="../../node_modules/monaco-editor/min/vs/loader.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<script src="extras.js"></script>
+</body>
+</html>

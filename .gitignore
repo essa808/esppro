@@ -1,0 +1,8 @@
+node_modules/
+dist/
+bin/*.exe
+esppro-data/
+*.rar
+*.log
+*.bin
+.env
