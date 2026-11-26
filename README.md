@@ -2,6 +2,12 @@
 
 بيئة تطوير لـ **Arduino و ESP** على Windows، أخف من Arduino IDE ومع أدوات ESP مدمجة لا تحتاج معها برامج أخرى.
 
+[![release](https://img.shields.io/github/v/release/essa808/esppro?style=flat-square)](https://github.com/essa808/esppro/releases/latest)
+[![downloads](https://img.shields.io/github/downloads/essa808/esppro/total?style=flat-square)](https://github.com/essa808/esppro/releases)
+[![license](https://img.shields.io/github/license/essa808/esppro?style=flat-square)](LICENSE)
+[![boards](https://img.shields.io/badge/boards-Arduino%20%7C%20ESP32%20%7C%20ESP8266-00979D?style=flat-square)]()
+[![platform](https://img.shields.io/badge/platform-Windows-2ea44f?style=flat-square)]()
+
 ![المحرر](docs/screenshot-editor.png)
 
 ## المزايا
