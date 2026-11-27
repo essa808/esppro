@@ -23,6 +23,11 @@
 
 ![أدوات ESP](docs/screenshot-esp-tools.png)
 
+## فيديوهات
+
+- [esppro مقابل Arduino IDE](docs/videos/esppro-vs-arduino.mp4)
+- [نفس المقارنة بشكل عمودي (ريلز/شورتس)](docs/videos/arduino_vs_espro_vertical.mp4)
+
 ## التنزيل
 
 من صفحة [الإصدارات](https://github.com/essa808/esppro/releases/latest):
